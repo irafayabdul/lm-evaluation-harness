@@ -38,7 +38,6 @@ Prompting / in-context formatting options:
 
 Runtime configuration options:
 - **num_fewshot** (`int`, *optional*, defaults to 0) — Number of few-shot examples before the input.
-- **batch_size** (`int`, *optional*, defaults to 1) — Batch size.
 
 Scoring details:
 - **metric_list** (`str`, *optional*, defaults to None) — A list of metrics to use for evaluation. See docs for expected format.

@@ -25,6 +25,10 @@ generation_kwargs:
     - "</s>"
   do_sample: true
   temperature: 0.3
+filter_list:
+  - name: "boxes"
+    filter:
+      - function: !function utils_boxes.boxes_filter
 num_fewshot: 0
 metadata:
   - version: 1.0

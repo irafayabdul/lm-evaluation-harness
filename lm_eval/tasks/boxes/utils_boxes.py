@@ -1,4 +1,32 @@
-# Copied from Master
+from lm_eval.api.filter import Filter
+
+
+class BoxesFilter(Filter):
+    def __init__(self) -> None:
+        pass
+
+    def apply(self, resps, docs):
+        def filter_set(inst, query):
+            qu = query['sentence_masked'].split('.')
+            qu = [s.strip() for s in qu if s]
+            qu = qu[-1]
+            qu = qu.split(' <extra_id_0>')[0]
+
+            it = inst[0].split(',')
+            it = [item for item in it if qu in item][-1]
+            it = extract_words_after_the(it)
+            it = ' '.join(it)
+            return it
+
+        return [filter_set(resp, doc) for resp, doc in zip(resps, docs)]
+
+
+def extract_words_after_the(text):
+    words = text.split()
+    extracted_words = [words[i+1] for i in range(len(words)-1) if words[i].lower() == 'the']
+    return extracted_words
+
+
 def doc_to_text(doc) -> str:
     prompt = '''Given the description after "Description:", write a true statement about all boxes and their contents to the description after "Statement:".
     
@@ -20,4 +48,10 @@ def doc_to_target(doc) -> str:
     desc = doc["sentence"].split('.')
     desc = [s.strip() for s in desc if s]
     statement = desc[-1]
+    statement = extract_words_after_the(statement)
+    statement = ' '.join(statement)
     return statement
+
+
+def boxes_filter():
+    return BoxesFilter()

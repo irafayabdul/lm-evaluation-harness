@@ -1,7 +1,7 @@
 group: glue
-task: sst
+task: sst2
 dataset_path: glue
-dataset_name: sst
+dataset_name: sst2
 output_type: multiple_choice
 training_split: train
 validation_split: validation
@@ -11,4 +11,4 @@ doc_to_choice: ["negative", "positive"]
 metric_list:
   - metric: acc
 metadata:
-  - version: 1.0
+  version: 1.0
